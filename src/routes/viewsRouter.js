@@ -31,7 +31,7 @@ viewsRouter.get("/newCart", async (req, res) => {
   res.render("homeCarritos");
 });
 
-viewsRouter.get("/realtimeCarts/:id", async (req, res) => {
+viewsRouter.get("/realtimecarts/:id", async (req, res) => {
   const {id} = req.params
   try{
     const catalogProducts = await productHandler.getProducts();

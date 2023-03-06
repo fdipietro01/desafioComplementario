@@ -98,7 +98,7 @@ searchForm?.addEventListener("submit", async (evt) => {
   }
   const data = await fetch(`http://localhost:8080/api/carts/${id}`);
   if (data.status === 200) {
-    window.location.href = `http://localhost:8080/realtimeCarts/${id}`;
+    window.location.href = `http://localhost:8080/realtimecarts/${id}`;
   } else {
     window.alert("Algo salio mal, reintentar por favor")
   }
@@ -116,7 +116,7 @@ if (!prodId) {
 }
   const data = await fetch(`http://localhost:8080/api/carts/${cartId}/product/${prodId}`,{method: 'POST'})
   if (data.status === 200) {
-    window.location.href = `http://localhost:8080/realtimeCarts/${cartId}`;
+    window.location.href = `http://localhost:8080/realtimecarts/${cartId}`;
   } else {
     window.alert("Algo salio mal, reintentar por favor")
   }
