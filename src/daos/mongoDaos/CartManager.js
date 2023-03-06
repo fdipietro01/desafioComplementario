@@ -1,9 +1,6 @@
 const modeloCarrito = require("../../models/carritoModel");
 
 class CartMaganer {
-  constructor(path) {
-    this.path = path;
-  }
   addCart = async () => {
     try {
       return await modeloCarrito.create({});

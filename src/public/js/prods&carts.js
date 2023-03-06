@@ -1,9 +1,6 @@
 console.log("js");
-// const server = io()
 
 //LINK AL MANAGER DE PRODUCTOS
-
-
 const goToManager = ()=>{
   window.location.href = "http://localhost:8080/realtimeproducts"
 } 
@@ -121,36 +118,3 @@ if (!prodId) {
     window.alert("Algo salio mal, reintentar por favor")
   }
 })
-
-
-
-// server.on("error", (err) => {
-//     if (err === "Producto con código duplicado")
-//         window.alert(err)
-// })
-
-// server.on("actualizarProductos", (data) => {
-//     handleAlert(data)
-//     const table = document.getElementById("tableProd")
-//     const tableBody = document.getElementById("body")
-//     tableBody.remove()
-//     const newBody = document.createElement("tbody")
-
-//     const newBodyContent = `<tbody>
-//     ${data.map(prod => {
-//         return `<tr>
-//     <td>${prod.title}</td>
-//     <td>${prod.description}</td>
-//     <td>${prod.price}</td>
-//     <td>${prod.code}</td>
-//     <td>${prod.thumbnail}</td>
-//     <td>${prod.stock}</td>
-//     <td>${prod.category}</td>
-//     <td>${prod.status}</td>
-//     <td>${prod.id}</td>
-//     </tr>`}).join(" ")}
-//     </tbody>`
-//     newBody.innerHTML = newBodyContent
-//     table.appendChild(newBody)
-//     table.lastElementChild.id = "body"
-// })

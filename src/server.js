@@ -2,6 +2,10 @@ const express = require('express')
 const initConection = require('./db/mongo')
 const router = require('./routes/index')
 const handlebars = require('express-handlebars')
+const {Server} = require('socket.io')
+const ChatManager = require('./daos/mongoDaos/ChatManager')
+
+const chatManager = new ChatManager()
 
 const app = express()
 initConection()
@@ -19,11 +23,24 @@ app.use('/aleas', express.static(__dirname + "/public"))
 
 app.use(router)
 
-app.listen(PORT, err => {
+const httpServer = app.listen(PORT, err => {
     if (err) return err
     console.log(`Escuchando en el puerto ${PORT}`)
 })
+const io = new Server(httpServer)
+module.exports = io
 
-app.get("/aleas", (req, res)=>{
-    res.send("aa")
+
+io.on('connection', (socket)=>{
+    console.log("Conexión establecida")
+    
+    socket.on("usrLogueado", async (data)=>{
+        socket.emit("chat", {chat: await chatManager.getMessages(), name: data,})
+        socket.broadcast.emit("nuevoUsuarioAlerta", data)
+    })
+
+    socket.on("nuevoMsj", async (data)=>{
+        const chat = await chatManager.addMessage(data)
+        io.emit("chat", {chat})
+    })
 })
