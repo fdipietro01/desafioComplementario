@@ -44,7 +44,7 @@ socket.on("chat", ({ chat, name }) => {
         <span>${message}</span></li>`;
   });
   log.innerHTML = html;
-  log.lastChild.scrollIntoView()
+  log.scrollIntoView(false)
 });
 
 const handleSocket = (e) => {

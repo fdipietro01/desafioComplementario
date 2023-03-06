@@ -18,3 +18,6 @@ Esta url permite crear un nuevo carrito y obtener su numero de id. Con este, pod
 -http:localhost:8080/realtimecarts
 Esta url muestra el resultado de la búsqueda de un carrito y los productos que contiene. También permite agregar/actualizar cantidad de productos. 
 
+-http:localhost:8080/chat
+Esta url muestra el chat conectado a la base de datos. Exige ingresar un nombre para identificar el usuario
+
