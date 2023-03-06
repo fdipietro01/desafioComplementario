@@ -1,0 +1,20 @@
+El proyecto está debidamente conectado a MongoAtlas, y todas los endpoints solicitados en la consigna están presentes.
+Para poder hacer accesible estos endpoints desde una interfaz gráfica, agregué algunos enpoints adicionales vinculados a vistas.
+Todas las vistas están hechas con handlebars.
+
+A continuación una breve guía:
+
+-http://localhost:8080/
+Esta url muestra una tabla de los productos disponibles en la base de datos y un link al manager (desde donde se edita la colección de productos)
+
+
+-http:localhost:8080/realtimeproducts
+Esta url muestra el manager desde donde se agregan/eliminan productos
+
+-http://localhost:8080/newCart
+Esta url permite crear un nuevo carrito y obtener su numero de id. Con este, podemos buscar el carrito en la base de datos.
+
+
+-http:localhost:8080/realtimecarts
+Esta url muestra el resultado de la búsqueda de un carrito y los productos que contiene. También permite agregar/actualizar cantidad de productos. 
+
