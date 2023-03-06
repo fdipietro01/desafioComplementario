@@ -1,4 +1,5 @@
 const modeloProducto = require('../../models/productoModel')
+const {Types} = require('mongoose')
 
 class ProductManager {
    
@@ -17,7 +18,7 @@ class ProductManager {
     getProducts = async () => {
         {
             try {
-                const dataProds = await modeloProducto.find()
+                const dataProds = await modeloProducto.find().lean()
                 return dataProds
             }
             catch (err) {
@@ -35,7 +36,6 @@ class ProductManager {
 
     updateProduct = async (id, newProd) => {
         try {
-            console.log(id)
             await modeloProducto.updateOne({_id: id}, newProd)
         }
         catch (err) {
@@ -45,7 +45,9 @@ class ProductManager {
 
     deleteProduct = async (id) => {
         try {
-            await modeloProducto.deleteOne({_id: id })
+            const parsedId = Types.ObjectId(id)
+            const {deletedCount} = await modeloProducto.deleteOne({_id: parsedId})
+            return deletedCount
         }
         catch (err) {
             throw new Error(err.message)

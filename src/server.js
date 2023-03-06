@@ -10,16 +10,20 @@ const PORT = 8080
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(express.static(__dirname +'./public'))
 
 //definir motor de plantillas
 app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname + "/views")
 app.set('view engine', 'handlebars')
+app.use('/aleas', express.static(__dirname + "/public"))
 
 app.use(router)
 
 app.listen(PORT, err => {
     if (err) return err
     console.log(`Escuchando en el puerto ${PORT}`)
+})
+
+app.get("/aleas", (req, res)=>{
+    res.send("aa")
 })

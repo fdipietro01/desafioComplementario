@@ -1,0 +1,44 @@
+<div class="alert alert-info">
+    <h1 class="mx-auto" style="width: 450px">Tabla de Productos</h1>
+</div>
+<table style="width: 85%" class="table table-stripped mx-auto">
+    <thead class="thead-dark">
+        <tr>
+            <th class="text-center" scope="col">Titulo</th>
+            <th class="text-center" scope="col">Descripción</th>
+            <th class="text-center" scope="col">Precio</th>
+            <th class="text-center" scope="col">Código</th>
+            <th class="text-center" scope="col">Thumbnail</th>
+            <th class="text-center" scope="col">Stock</th>
+            <th class="text-center" scope="col">Categoría</th>
+            <th class="text-center" scope="col">Status</th>
+            <th class="text-center" scope="col">ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#if dataExist}}
+        {{#each data}}
+        <tr>
+            
+            <td class="text-center">{{this.title}}</td>
+            <td class="text-center">{{this.description}}</td>
+            <td class="text-center">{{this.price}}</td>
+            <td class="text-center">{{this.code}}</td>
+            <td class="text-center"><img style="width: 50px" src={{this.thumbnail}} alt="prd-img"></td>
+            <td class="text-center">{{this.stock}}</td>
+            <td class="text-center">{{this.category}}</td>
+            <td class="text-center">{{this.status}}</td>
+            <td class="text-center">{{this._id}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+        {{else}}
+</table>
+<div class="alert alert-danger mx-auto" style="width: 400px" role="alert">
+    <span class="mx-auto"> No existen productos agregados por el momento.</span>
+</div>
+    <div class="text-center">
+        <button onclick="goToManager()" id="goToProdControl" class="btn btn-info" >Agregar productos</button>
+    </div>
+{{/if}}

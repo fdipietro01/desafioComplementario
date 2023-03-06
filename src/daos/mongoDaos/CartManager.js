@@ -6,8 +6,7 @@ class CartMaganer {
   }
   addCart = async () => {
     try {
-      const result = await modeloCarrito.create({});
-      console.log({ result });
+      return await modeloCarrito.create({});
     } catch (err) {
       throw new Error("Error al crear el carrito", err);
     }
@@ -15,32 +14,37 @@ class CartMaganer {
 
   getProductsfromCart = async (cid) => {
     try {
-      const carrito = await modeloCarrito.findOne({ _id: cid });
-      return carrito ? carrito.productos : undefined;
+      const carrito = await modeloCarrito.findOne({ _id: cid }).lean();
+      if (!carrito) throw new Error("No existe el carrito con ese Id");
+      //mapping response
+      let products;
+      if (carrito.productos.length === 0) products = [];
+      else {
+        products = carrito.productos.map(({ product, quantity }) => {
+          const newProd = {...product, _id: product._id.toString(), quantity}
+          return newProd;
+        });
+      }
+      return products;
     } catch (err) {
+      console.log(err.message)
       throw new Error("Error al leer productos", err);
     }
   };
 
   updateProductFromCart = async (cid, pid) => {
     try {
-      const cart = await modeloCarrito
-        .findOne({ _id: cid })
+      const cart = await modeloCarrito.findOne({ _id: cid });
 
-      const parsedCart = JSON.stringify(cart, null, 2);
-      // console.log(parsedCart)
-      console.log(cart.productos.find(prod => prod._id === pid))
-    
-    //   const product = cart.productos.find((obj) => {
-    //     console.log({laClave: obj._id});
-    //     return obj.product._id === pid;
-    //   });
-    //   if (product) {
-    //     product.quantity++;
-    //   } else {
-    //     cart.productos.push({ product: pid, quantity: 1 });
-    //   }
-      //await modeloCarrito.findByIdAndUpdate({ _id: cid }, cart);
+      const index = cart.productos.findIndex(
+        (obj) => obj.product._id.toString() === pid
+      );
+      if (index !== -1) {
+        cart.productos[index].quantity++;
+      } else {
+        cart.productos.push({ product: pid, quantity: 1 });
+      }
+      await modeloCarrito.findByIdAndUpdate({ _id: cid }, cart);
     } catch (err) {
       console.log(err);
       throw new Error("Error al leer productos", err.message);

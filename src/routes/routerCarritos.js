@@ -1,5 +1,7 @@
 const {Router} = require('express')
 const CartManager = require('../daos/mongoDaos/CartManager')
+const {Types} = require("mongoose")
+
 
 const routerCarritos = Router()
 const carritoHandler = new CartManager()
@@ -7,8 +9,8 @@ const carritoHandler = new CartManager()
 routerCarritos.get('/:cid', async (req, res)=>{
     const { cid } = req.params
     try{
-        const products = await carritoHandler.getProductsfromCart(cid)
-        res.send(products)
+        const products = await carritoHandler.getProductsfromCart(Types.ObjectId(cid))
+        res.status(200).send(products)
     }
     catch(err){
         res.status(400).send(err)
@@ -17,8 +19,9 @@ routerCarritos.get('/:cid', async (req, res)=>{
 
 routerCarritos.post('/', async (req, res)=>{
     try{
-       await carritoHandler.addCart()
-        res.status(200).send({agregado: "success"})
+       const {_id} = await carritoHandler.addCart()
+       res.status(200).send({id: _id})
+
     }
     catch(err){ 
         res.status(400).send(err.message)
